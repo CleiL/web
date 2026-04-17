@@ -1,0 +1,6 @@
+{
+  "welcome": "Bem-vindo à Oficina",
+  "login": "Entrar",
+  "logout": "Sair",
+  "login_error": "Usuário ou senha inválidos"
+}

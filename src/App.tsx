@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './auth/Login';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { ClientesList } from './clientes';
+import { EmpresasList } from './empresas';
+import { FornecedoresList } from './fornecedores';
+import { FuncionariosList } from './funcionarios';
+import { ProdutosList } from './produtos';
+import OrcamentosList from './orcamentos';
+import { VeiculosList } from './veiculos';
+
+const Dashboard = () => (
+  <>
+    <ClientesList />
+    <EmpresasList />
+    <FornecedoresList />
+    <FuncionariosList />
+    <ProdutosList />
+    <VeiculosList />
+  </>
+);
+
+const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" />;
+};
+
+const App: React.FC = () => (
+  <Router>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+    </Routes>
+  </Router>
+);
 
 export default App;
